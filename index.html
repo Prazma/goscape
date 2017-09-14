@@ -5,117 +5,40 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<style>
 			body {
-				margin: 0;
+				margin: 0;	
 			}
-			.topper {
+			.read {
+			}
+			.cont {
+				background: rgba(255,255,255,0.5);
+				border: 4px solid #ffffff;
+				height: 70px;
+				width: 70px;
+				border-radius: 50%;
+			}
+			.camera-control {
 				position: fixed;
-				top: 0;
+				bottom: 0;
 				width: 100%;
-				left: 0;
-				right: 0;
-				z-index: 49;
-				box-sizing: border-box;
-				background: white;
-				font-family: sans-serif;
-				display: flex;
-				display: -webkit-box;
-				display: -ms-flexbox;
-				display: -webkit-flex;
-				padding: 10px 10px;
-				height: 50px;
-				-webkit-user-select: none;
-				font-family: benton-sans, 'Helvetica Neue', sans-serif;
-				box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-			}
-			.topper::after {
-				background: linear-gradient(to right, #9E7CC1, #8ECDEA);
-				content: '';
-				width: 100%;
-				position: absolute;
-				top: 50px;
-				height: 3px;
-				left: 0;
-			}
-			.header {
-				font-weight: bold;
-				font-size: 25px;
-				color: #9E7CC1;
-			}
-			.topnav {
-				position: fixed;
-				background: #f7f8fb;
-				top: 50px;
-				width: 100%;
-				padding: 10px 10px;
-				margin-top: 2px;
-				border-bottom: 1px solid #e7ebf3;
-				-webkit-flex-shrink: 0;
-				-moz-flex-shrink: 0;
-				flex-shrink: 0;
-				-ms-flex-negative: 0;
-				-webkit-box-align: center;				
-				-moz-box-align: center;
-				box-align: center;
-				-webkit-align-items: center;
-				-moz-align-items: center;
-				-ms-align-items: center;
-				-o-align-items: center;
-				align-items: center;
-				-ms-flex-align: center;
+				padding: 10px;
+				background: rgba(0, 0, 0, 0.5);
 				text-align: center;
-			}
-			.btn {
-				border-radius: 4px;
-				border: none;
-				padding-left: 15px;
-				padding-right: 15px;
-				-webkit-transition: background-color ease .2s;
-				-o-transition: background-color ease .2s;
-				transition: background-color ease .2s;
-				box-shadow: inset 0 0 0 1px rgba(121, 88, 159, .6);
-				font-weight: 700;
-				padding: 5px 10px;
-				line-height: 1.5;
-				border-radius: 3px;
-				color: #79589F;
-				background-color: #fff;
-				border-color: #79589F;
-				font-size: 14px;
-				width: 90%;
-			}
-			.caret {
-				background: url('https://d1ic07fwm32hlr.cloudfront.net/assets/sprite-b3de778bdc27212429e6ba6761a9143f.png') no-repeat;
-				background-size: 350px 328px;
-				background-position: -115px -62px;
-				width: 7px;
-				height: 10px;
-				display: inline-block;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="camera" style="display: none;">
-			
-		</div>
-		<div id="inbox" style="display: none;">
-			
-		</div>
-		<div id="player" style="display: none;">
-			
-		</div>
-		<div id="create">
-			<div class="topper">
-				<span class="header">Create</span>
+		<div class="read">
+			<div class="camera-control">
+				<button id="camcirc" class="cont" onmousedown="whitercam()" onmouseup="blackrcam()"></button>
+				<script>
+					function whitercam() {
+						document.getElementById("camcirc").style.background = "#ffffff";
+					}
+					function blackrcam() {
+						document.getElementById("camcirc").style.background = "rgba(255, 255, 255, 0.5)";
+					}
+				</script>
 			</div>
-			<div class="topnav">
-				<button class="btn">
-					新しいメッセージ
-					<i class="caret"></i>
-				</button>
-			</div>
-		</div>
-		<div id="campaign" style="display: none;">
-			
 		</div>
 	</body>
 </html>
