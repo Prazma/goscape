@@ -4,6 +4,9 @@
 		<title>GoScape</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<style>
+			html {
+				-webkit-tap-highlight-color: rgba(0,0,0,0);
+			}
 			body {
 				margin: 0;	
 			}
@@ -15,6 +18,7 @@
 				height: 70px;
 				width: 70px;
 				border-radius: 50%;
+				outline: none;
 			}
 			.camera-control {
 				position: fixed;
@@ -29,13 +33,13 @@
 	<body>
 		<div class="read">
 			<div class="camera-control">
-				<button id="camcirc" class="cont" onmousedown="whitercam()" onmouseup="blackrcam()"></button>
+				<button id="camcirc" class="cont" onclick="snapread()"></button>
 				<script>
-					function whitercam() {
+					function snapread() {
 						document.getElementById("camcirc").style.background = "#ffffff";
-					}
-					function blackrcam() {
-						document.getElementById("camcirc").style.background = "rgba(255, 255, 255, 0.5)";
+						setTimeout( function () {
+							document.getElementById("camcirc").style.background = "rgba(255, 255, 255, 0.5)";
+						}, 100)
 					}
 				</script>
 			</div>
