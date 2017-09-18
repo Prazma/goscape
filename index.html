@@ -3,12 +3,24 @@
 	<head>
 		<title>GoScape</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<link rel="apple-touch-icon" href="img/goicon.png">
+		<meta name="apple-mobile-web-app-title" content="GoScape">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
 		<style>
 			html {
 				-webkit-tap-highlight-color: rgba(0,0,0,0);
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
 			}
 			body {
-				margin: 0;	
+				margin: 0;
+				background: #757575;
+				font-family: sans-serif;
 			}
 			.read {
 			}
@@ -25,12 +37,43 @@
 				bottom: 0;
 				width: 100%;
 				padding: 10px 0px;
-				background: rgba(0, 0, 0, 0.5);
+				background: transparent;
 				text-align: center;
 			}
 			#video {
 				width: 100%;
 				height: 100vh;
+			}
+			.capcha {
+				padding: 10px 10px 10px 10px;
+				background: #fff;
+				border-radius: 6px;
+				border: none;
+			}
+			#reader {
+				float: left;
+				margin-top: 7px;
+				margin-left: 20px;
+				background: #ff5722;
+			}
+			#netexp {
+				float: right;
+				margin-top: 7px;
+				margin-right: 20px;
+				background: #03a9f4
+			}
+			#menue {
+				position: fixed;
+				top: 0;
+				width: 100%;
+				padding: 10px 0px;
+				background: rgba( 0, 0, 0, 0.1);
+				text-align: center;
+			}
+			.gospan {
+				font-size: 25px;
+				color: #fff;
+				font-weight: lighter;
 			}
 		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -85,6 +128,11 @@
 						});
 					}).resize();
 				</script>
+			</div>
+			<div id="menue">
+				<span class="gospan">CREATE</span>
+				<button class="capcha" id="reader" onclick="reacp"><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQxLjk5OSA0MS45OTkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQxLjk5OSA0MS45OTk7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMzJweCIgaGVpZ2h0PSIzMnB4Ij4KPHBhdGggZD0iTTM2LjA2OCwyMC4xNzZsLTI5LTIwQzYuNzYxLTAuMDM1LDYuMzYzLTAuMDU3LDYuMDM1LDAuMTE0QzUuNzA2LDAuMjg3LDUuNSwwLjYyNyw1LjUsMC45OTl2NDAgIGMwLDAuMzcyLDAuMjA2LDAuNzEzLDAuNTM1LDAuODg2YzAuMTQ2LDAuMDc2LDAuMzA2LDAuMTE0LDAuNDY1LDAuMTE0YzAuMTk5LDAsMC4zOTctMC4wNiwwLjU2OC0wLjE3N2wyOS0yMCAgYzAuMjcxLTAuMTg3LDAuNDMyLTAuNDk0LDAuNDMyLTAuODIzUzM2LjMzOCwyMC4zNjMsMzYuMDY4LDIwLjE3NnogTTcuNSwzOS4wOTVWMi45MDRsMjYuMjM5LDE4LjA5Nkw3LjUsMzkuMDk1eiIgZmlsbD0iI0ZGRkZGRiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></button>
+				<button class="capcha" id="netexp" onclick="netcp"><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU4Ljk5NSA1OC45OTUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDU4Ljk5NSA1OC45OTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMzJweCIgaGVpZ2h0PSIzMnB4Ij4KPHBhdGggZD0iTTM5LjkyNyw0MS45MjljLTAuNTI0LDAuNTI0LTAuOTc1LDEuMS0xLjM2NSwxLjcwOWwtMTcuMjgtMTAuNDg5YzAuNDU3LTEuMTQ0LDAuNzE2LTIuMzg4LDAuNzE2LTMuNjkzICBjMC0xLjMwNS0wLjI1OS0yLjU0OS0wLjcxNS0zLjY5M2wxNy4yODQtMTAuNDA5QzQwLjM0MiwxOC4xNDIsNDMuNDU0LDIwLDQ2Ljk5OCwyMGM1LjUxNCwwLDEwLTQuNDg2LDEwLTEwcy00LjQ4Ni0xMC0xMC0xMCAgcy0xMCw0LjQ4Ni0xMCwxMGMwLDEuMjU2LDAuMjQzLDIuNDU0LDAuNjY3LDMuNTYyTDIwLjM1OCwyMy45ODVjLTEuNzg4LTIuNzI0LTQuODY2LTQuNTI5LTguMzYxLTQuNTI5Yy01LjUxNCwwLTEwLDQuNDg2LTEwLDEwICBzNC40ODYsMTAsMTAsMTBjMy40OTUsMCw2LjU3Mi0xLjgwNSw4LjM2LTQuNTI5TDM3LjY2MSw0NS40M2MtMC40MywxLjEyNi0wLjY2NCwyLjMyOS0wLjY2NCwzLjU3YzAsMi42NzEsMS4wNCw1LjE4MywyLjkyOSw3LjA3MSAgYzEuOTQ5LDEuOTQ5LDQuNTEsMi45MjQsNy4wNzEsMi45MjRzNS4xMjItMC45NzUsNy4wNzEtMi45MjRjMS44ODktMS44ODksMi45MjktNC40LDIuOTI5LTcuMDcxcy0xLjA0LTUuMTgzLTIuOTI5LTcuMDcxICBDNTAuMTY5LDM4LjAyOSw0My44MjYsMzguMDI5LDM5LjkyNyw0MS45Mjl6IE00Ni45OTgsMmM0LjQxMSwwLDgsMy41ODksOCw4cy0zLjU4OSw4LTgsOHMtOC0zLjU4OS04LThTNDIuNTg2LDIsNDYuOTk4LDJ6ICAgTTExLjk5OCwzNy40NTZjLTQuNDExLDAtOC0zLjU4OS04LThzMy41ODktOCw4LThzOCwzLjU4OSw4LDhTMTYuNDA5LDM3LjQ1NiwxMS45OTgsMzcuNDU2eiBNNTIuNjU0LDU0LjY1NyAgYy0zLjExOSwzLjExOS04LjE5NCwzLjExOS0xMS4zMTMsMGMtMS41MTEtMS41MTEtMi4zNDMtMy41MjEtMi4zNDMtNS42NTdzMC44MzItNC4xNDYsMi4zNDMtNS42NTcgIGMxLjU2LTEuNTYsMy42MDgtMi4zMzksNS42NTctMi4zMzlzNC4wOTcsMC43NzksNS42NTcsMi4zMzljMS41MTEsMS41MTEsMi4zNDMsMy41MjEsMi4zNDMsNS42NTdTNTQuMTY2LDUzLjE0Niw1Mi42NTQsNTQuNjU3eiIgZmlsbD0iI0ZGRkZGRiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></button>
 			</div>
 		</div>
 	</body>
