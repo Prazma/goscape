@@ -4,6 +4,15 @@
 		<title>GoScape</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<style>
+			html {
+				-webkit-tap-highlight-color: rgba(0,0,0,0);
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
 			body {
 				margin: 0;
 				font-family: sans-serif;
@@ -46,7 +55,8 @@
 				background: transparent;
 				border: none;
 				float: left;
-				margin-left: 0px;
+				margin-left: 10px;
+				margin-top: 10px;
 				font-size: 35px;
 				color: #8e44ad;
 			}
@@ -110,7 +120,7 @@
 				<button class="logger" style="background: #3BB1D7; color: #fff" onclick="opnsgn()">サインアップ</button>
 			</div>
 			<div id="signup" style="display: none">
-				<button onclick="bcksgn()" class="icon left">＜</button>
+				<button onclick="bcksgn()" class="icon left"><img src="data:image/png;base64,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" height="40px;"/></button>
 				<div class="porter">
 					<div id="q1">
 						<span>名前は？</span><br>
