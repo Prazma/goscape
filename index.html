@@ -84,17 +84,36 @@
 		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	</head>
-	<body>
+	<body onload="canvasupd()" onresize="canvasupd()">
 		<div class="read">
-			<video id="video" width="480" height="800" autoplay></video>
+			<video style="display: none;" id="video" width="" height="" autoplay></video>
+			<canvas id="stream" width="" height=""></canvas>
 			<div class="camera-control">
 				<button id="camcirc" class="cont" onclick="snapread()"></button>
 				<script>
+					function canvasupd() {
+						var w = window.innerWidth;
+						var h = window.innerHeight;
+						document.getElementById("stream").width = w;
+						document.getElementById("stream").height = h;
+						document.getElementById("video").width = w;
+						document.getElementById("video").height = h;
+					}
 					function snapread() {
 						document.getElementById("camcirc").style.background = "#ffffff";
 						setTimeout( function () {
 							document.getElementById("camcirc").style.background = "rgba(255, 255, 255, 0.5)";
 						}, 100)
+					}
+				</script>
+				<script>
+					function stream() {
+						var w = window.innerWidth;
+						var h = window.innerHeight;
+						var canvas = document.getElementById('stream');
+						var context = canvas.getContext('2d');
+						var video = document.getElementById('video');
+						context.drawImage(video, 0, 0, w, h);
 					}
 					var video = document.getElementById('video');
 					// Get access to the camera!
@@ -133,6 +152,7 @@
 							'marginLeft' : marginLeftAdjust
 						});
 					}).resize();
+					stream();
 				</script>
 			</div>
 			<div id="menue">
