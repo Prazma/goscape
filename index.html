@@ -159,7 +159,7 @@
 							<span class="label">USERNAME</span><br>
 							<input id="username" class="input" onkeyup="chkusr()"><br>
 							<div style="text-align: center;">
-								<button id="sgup" class="signbtn" onclick="sgnnxt()" disabled>続く</button>
+								<button id="sguptwo" class="signbtn" onclick="sgnnxt()" disabled>続く</button>
 							</div>
 						</div>
 					</div>
@@ -172,9 +172,14 @@
 						var chk = document.getElementById("username").value;
 						if( chk == "Prazma10110276master" ) {
 							var database = firebase.database();
+							var frs = document.getElementById("firstname").value;
+							var lst = document.getElementById("lastname").value;
 							firebase.database().ref('users/').set({
 								username: "tomocode",
+								firstname: frs,
+								lastname: lst
 							});
+							document.getElementById("sguptwo").disabled = false;
 						}
 					}
 				</script>
