@@ -1,1 +1,1 @@
-# TERMS OF USE
+# TERMS OF USE/利用規約
