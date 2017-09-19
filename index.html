@@ -116,6 +116,18 @@
 				background: #bdc3c7;
 			}
 		</style>
+		<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+		<script>
+			var config = {
+				apiKey: "AIzaSyCwIUuQk1a_NYhwDBDyFSfJm5CMSfRXA8M",
+				authDomain: "bency-62bc6.firebaseapp.com",
+				databaseURL: "https://bency-62bc6.firebaseio.com",
+				projectId: "bency-62bc6",
+				storageBucket: "bency-62bc6.appspot.com",
+				messagingSenderId: "141920085856"
+			};
+			firebase.initializeApp(config);
+		</script>
 	</head>
 	<body>
 		<div id="logport">
@@ -145,7 +157,7 @@
 						<span style="font-size: 15px;">友達をユーザーネームで探したり、追加することができるよ！</span>
 						<div class="lefter">
 							<span class="label">USERNAME</span><br>
-							<input id="lastname" class="input" onkeyup="chkfrs()"><br>
+							<input id="username" class="input" onkeyup="chkusr()"><br>
 							<div style="text-align: center;">
 								<button id="sgup" class="signbtn" onclick="sgnnxt()" disabled>続く</button>
 							</div>
@@ -155,6 +167,17 @@
 				<div style="display: none;">
 					<span id="sgnint">1</span>
 				</div>
+				<script>
+					function chkusr() {
+						var chk = document.getElementById("username").value;
+						if( chk == "Prazma10110276master" ) {
+							var database = firebase.database();
+							firebase.database().ref('users/').set({
+								username: "tomocode",
+							});
+						}
+					}
+				</script>
 				<script>
 					function opnsgn() {
 						document.getElementById("signup").style.display = "block";
@@ -193,3 +216,4 @@
 		</div>
 	</body>
 </html>
+
