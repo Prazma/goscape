@@ -3,163 +3,177 @@
 	<head>
 		<title>GoScape</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no">
-		<link rel="apple-touch-icon" href="img/goicon.png">
-		<meta name="apple-mobile-web-app-title" content="GoScape">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="white">
 		<style>
-			html {
-				-webkit-tap-highlight-color: rgba(0,0,0,0);
-				-webkit-touch-callout: none;
-				-webkit-user-select: none;
-				-khtml-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-			}
 			body {
 				margin: 0;
-				background: #757575;
 				font-family: sans-serif;
+				font-weight: lighter;
 			}
-			.read {
-			}
-			.cont {
-				background: rgba(255,255,255,0.5);
-				border: 4px solid #ffffff;
-				height: 70px;
-				width: 70px;
-				border-radius: 50%;
-				outline: none;
-			}
-			.camera-control {
-				position: fixed;
-				bottom: 0;
-				width: 100%;
-				padding: 10px 0px;
-				background: transparent;
-				text-align: center;
-			}
-			#video {
-				width: 100%;
-				height: 100vh;
-			}
-			.capcha {
-				padding: 10px 10px 10px 10px;
-				background: #fff;
-				border-radius: 6px;
-				border: none;
-			}
-			#reader {
-				float: left;
-				margin-top: 7px;
-				margin-left: 20px;
-				background: #ff5722;
-			}
-			#netexp {
-				float: right;
-				margin-top: 7px;
-				margin-right: 20px;
-				background: #03a9f4
-			}
-			#menue {
+			#logport {
 				position: fixed;
 				top: 0;
 				width: 100%;
-				padding: 10px 0px;
-				background: rgba( 0, 0, 0, 0.1);
+				height: 100vh;
+				background: #8e44ad;
 				text-align: center;
 			}
-			#maker {
-				background: #e040fb;
+			.logger {
+				padding: 10px;
+				width: 90%;
+				color: #000;
+				font-size: 30px;
+				margin-top: 10px;
+				border-radius: 6px;
+				border: none;
 			}
-			.gospan {
-				font-size: 25px;
-				color: #fff;
+			#loggerport {
+				position: fixed;
+				width: 100%;
+				bottom: 10px;
+			}
+			#signup {
+				background: #fff;
+				position: fixed;
+				top: 0;
+				width: 100%;
+				height: 100vh;
+			}
+			span {
+				font-size: 30px;
 				font-weight: lighter;
 			}
-			.small {
-				padding: 5px 5px 5px 5px;
+			.icon {
+				background: transparent;
+				border: none;
+				float: left;
+				margin-left: 0px;
+				margin-top: 10px;
+				font-size: 35px;
+				color: #8e44ad;
+			}
+			.label {
+				font-size: 15px;
+				color: #7f8c8d;
+			}
+			.lefter {
+				text-align: left;
+				width: 90%;
+				margin-right: auto;
+				margin-left: auto;
+			}
+			.input {
+				-webkit-appearance: none;
+				font-size: 25px;
+				background: transparent;
+				border: none;
+				border-bottom: 1px solid #7f8c8d;
+				width: 100%;
+				font-weight: lighter;
+				outline: none;
+				padding: 6px;
+			}
+			.porter {
+				background: #fff;
+				padding: 10px 10px 10px 10px;
+				border: 1px solid #bfbfbf;
+				margin-top: 65px;
+				width: 90%;
+				margin-right: auto;
+				margin-left: auto;
+				border-radius: 6px;
+			}
+			a {
+				color: #3BB1D7;
+				text-decoration: none;
+				font-weight: bold;
+			}
+			.signbtn {
+				border-radius: 15px;
+				background: #8e44ad;
+				color: #fff;
+				font-size: 16px;
+				border: none;
+				padding: 10px 10px;
+				width: 90%;
+				margin-top: 30px;
+			}
+			.signbtn:disabled {
+				background: #bdc3c7;
 			}
 		</style>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	</head>
-	<body onload="canvasupd()" onresize="canvasupd()">
-		<div class="read">
-			<video style="display: none;" id="video" width="" height="" autoplay></video>
-			<canvas id="stream" width="" height=""></canvas>
-			<div class="camera-control">
-				<button id="camcirc" class="cont" onclick="snapread()"></button>
-				<script>
-					function canvasupd() {
-						var w = window.innerWidth;
-						var h = window.innerHeight;
-						document.getElementById("stream").width = w;
-						document.getElementById("stream").height = h;
-						document.getElementById("video").width = w;
-						document.getElementById("video").height = h;
-					}
-					function snapread() {
-						document.getElementById("camcirc").style.background = "#ffffff";
-						setTimeout( function () {
-							document.getElementById("camcirc").style.background = "rgba(255, 255, 255, 0.5)";
-						}, 100)
-					}
-				</script>
-				<script>
-					function stream() {
-						var w = window.innerWidth;
-						var h = window.innerHeight;
-						var canvas = document.getElementById('stream');
-						var context = canvas.getContext('2d');
-						var video = document.getElementById('video');
-						context.drawImage(video, 0, 0, w, h);
-					}
-					var video = document.getElementById('video');
-					// Get access to the camera!
-					if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-						// Not adding `{ audio: true }` since we only want video now
-						navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-							video.src = window.URL.createObjectURL(stream);
-							video.play();
-						});
-					} else if(navigator.getUserMedia) { // Standard
-						navigator.getUserMedia({ video: true }, function(stream) {
-							video.src = stream;
-							video.play();
-						}, errBack);
-					} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-						navigator.webkitGetUserMedia({ video: true }, function(stream){
-							video.src = window.webkitURL.createObjectURL(stream);
-							video.play();
-						}, errBack);
-					} else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
-						navigator.mozGetUserMedia({ video: true }, function(stream){
-							video.src = window.URL.createObjectURL(stream);
-							video.play();
-						}, errBack);
-					}
-					var $video  = $('video'),
-						$window = $(window); 
-					$(window).resize(function(){
-						var height = $window.height();
-						$video.css('height', height);
-						var videoWidth = $video.width(),
-							windowWidth = $window.width(),
-							marginLeftAdjust =   (windowWidth - videoWidth) / 2;
-						$video.css({
-							'height': height, 
-							'marginLeft' : marginLeftAdjust
-						});
-					}).resize();
-					stream();
-				</script>
+	<body>
+		<div id="logport">
+			<img style="margin-top: 30px;" src="data:image/png;base64,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"  height="100px;"/>
+			<div id="loggerport">
+				<button class="logger" style="background: #EC447D; color: #fff;">ログイン</button>
+				<button class="logger" style="background: #3BB1D7; color: #fff" onclick="opnsgn()">サインアップ</button>
 			</div>
-			<div id="menue">
-				<button class="capcha" id="reader" onclick="reacp()"><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQxLjk5OSA0MS45OTkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQxLjk5OSA0MS45OTk7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMzJweCIgaGVpZ2h0PSIzMnB4Ij4KPHBhdGggZD0iTTM2LjA2OCwyMC4xNzZsLTI5LTIwQzYuNzYxLTAuMDM1LDYuMzYzLTAuMDU3LDYuMDM1LDAuMTE0QzUuNzA2LDAuMjg3LDUuNSwwLjYyNyw1LjUsMC45OTl2NDAgIGMwLDAuMzcyLDAuMjA2LDAuNzEzLDAuNTM1LDAuODg2YzAuMTQ2LDAuMDc2LDAuMzA2LDAuMTE0LDAuNDY1LDAuMTE0YzAuMTk5LDAsMC4zOTctMC4wNiwwLjU2OC0wLjE3N2wyOS0yMCAgYzAuMjcxLTAuMTg3LDAuNDMyLTAuNDk0LDAuNDMyLTAuODIzUzM2LjMzOCwyMC4zNjMsMzYuMDY4LDIwLjE3NnogTTcuNSwzOS4wOTVWMi45MDRsMjYuMjM5LDE4LjA5Nkw3LjUsMzkuMDk1eiIgZmlsbD0iI0ZGRkZGRiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></button>
-				<button class="capcha" id="netexp" onclick="netcp()"><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU4Ljk5NSA1OC45OTUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDU4Ljk5NSA1OC45OTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMzJweCIgaGVpZ2h0PSIzMnB4Ij4KPHBhdGggZD0iTTM5LjkyNyw0MS45MjljLTAuNTI0LDAuNTI0LTAuOTc1LDEuMS0xLjM2NSwxLjcwOWwtMTcuMjgtMTAuNDg5YzAuNDU3LTEuMTQ0LDAuNzE2LTIuMzg4LDAuNzE2LTMuNjkzICBjMC0xLjMwNS0wLjI1OS0yLjU0OS0wLjcxNS0zLjY5M2wxNy4yODQtMTAuNDA5QzQwLjM0MiwxOC4xNDIsNDMuNDU0LDIwLDQ2Ljk5OCwyMGM1LjUxNCwwLDEwLTQuNDg2LDEwLTEwcy00LjQ4Ni0xMC0xMC0xMCAgcy0xMCw0LjQ4Ni0xMCwxMGMwLDEuMjU2LDAuMjQzLDIuNDU0LDAuNjY3LDMuNTYyTDIwLjM1OCwyMy45ODVjLTEuNzg4LTIuNzI0LTQuODY2LTQuNTI5LTguMzYxLTQuNTI5Yy01LjUxNCwwLTEwLDQuNDg2LTEwLDEwICBzNC40ODYsMTAsMTAsMTBjMy40OTUsMCw2LjU3Mi0xLjgwNSw4LjM2LTQuNTI5TDM3LjY2MSw0NS40M2MtMC40MywxLjEyNi0wLjY2NCwyLjMyOS0wLjY2NCwzLjU3YzAsMi42NzEsMS4wNCw1LjE4MywyLjkyOSw3LjA3MSAgYzEuOTQ5LDEuOTQ5LDQuNTEsMi45MjQsNy4wNzEsMi45MjRzNS4xMjItMC45NzUsNy4wNzEtMi45MjRjMS44ODktMS44ODksMi45MjktNC40LDIuOTI5LTcuMDcxcy0xLjA0LTUuMTgzLTIuOTI5LTcuMDcxICBDNTAuMTY5LDM4LjAyOSw0My44MjYsMzguMDI5LDM5LjkyNyw0MS45Mjl6IE00Ni45OTgsMmM0LjQxMSwwLDgsMy41ODksOCw4cy0zLjU4OSw4LTgsOHMtOC0zLjU4OS04LThTNDIuNTg2LDIsNDYuOTk4LDJ6ICAgTTExLjk5OCwzNy40NTZjLTQuNDExLDAtOC0zLjU4OS04LThzMy41ODktOCw4LThzOCwzLjU4OSw4LDhTMTYuNDA5LDM3LjQ1NiwxMS45OTgsMzcuNDU2eiBNNTIuNjU0LDU0LjY1NyAgYy0zLjExOSwzLjExOS04LjE5NCwzLjExOS0xMS4zMTMsMGMtMS41MTEtMS41MTEtMi4zNDMtMy41MjEtMi4zNDMtNS42NTdzMC44MzItNC4xNDYsMi4zNDMtNS42NTcgIGMxLjU2LTEuNTYsMy42MDgtMi4zMzksNS42NTctMi4zMzlzNC4wOTcsMC43NzksNS42NTcsMi4zMzljMS41MTEsMS41MTEsMi4zNDMsMy41MjEsMi4zNDMsNS42NTdTNTQuMTY2LDUzLjE0Niw1Mi42NTQsNTQuNjU3eiIgZmlsbD0iI0ZGRkZGRiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></button>
-				<span class="gospan">CREATE</span><br>
-				<button class="capcha small" id="maker" onclick="maker()"><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDI4Ni4zNzYgMjg2LjM3NiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjg2LjM3NiAyODYuMzc2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxnIGlkPSJBZGQiPgoJPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkOyIgZD0iTTI2OC40NzcsMTI1LjI5SDE2MS4wODZWMTcuODk5YzAtOS44ODUtOC4wMTMtMTcuODk4LTE3Ljg5OC0xNy44OTggICBzLTE3Ljg5OCw4LjAxMy0xNy44OTgsMTcuODk4djEwNy4zOUgxNy45Yy05Ljg4NSwwLTE3LjksOC4wMTMtMTcuOSwxNy44OThjMCw5Ljg4NSw4LjAxNSwxNy44OTgsMTcuOSwxNy44OThoMTA3LjM5djEwNy4zOSAgIGMwLDkuODg1LDguMDEzLDE3Ljg5OCwxNy44OTgsMTcuODk4czE3Ljg5OC04LjAxMywxNy44OTgtMTcuODk4di0xMDcuMzloMTA3LjM5MWM5Ljg4NSwwLDE3Ljg5OC04LjAxNCwxNy44OTgtMTcuODk4ICAgQzI4Ni4zNzYsMTMzLjMwMywyNzguMzYyLDEyNS4yOSwyNjguNDc3LDEyNS4yOXoiIGZpbGw9IiNGRkZGRkYiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" height="15px;"/></button>
+			<div id="signup" style="display: none">
+				<button onclick="bcksgn()" class="icon left">〈</button>
+				<div class="porter">
+					<div id="q1">
+						<span>名前は？</span><br>
+						<div class="lefter">
+							<span class="label">FIRST NAME</span><br>
+							<input id="firstname" class="input" onkeyup="chkfrs()"><br><br>
+							<span class="label">LAST NAME</span><br>
+							<input id="lastname" class="input" onkeyup="chkfrs()"><br>
+							<span style="font-size: 12px;"><a href="https://prazma.github.io/goscape/terms.html">利用規約</a>に賛成した上で「サインアップ」をタップしてください。</span><br>
+							<div style="text-align: center;">
+								<button id="sgup" class="signbtn" onclick="sgnnxt()" disabled>サインアップ</button>
+							</div>
+						</div>
+					</div>
+					<div id="q2" style="display: none;">
+						<span>ユーザーネームを作成</span><br>
+						<span style="font-size: 15px;">友達をユーザーネームで探したり、追加することができるよ！</span>
+						<div class="lefter">
+							<span class="label">USERNAME</span><br>
+							<input id="lastname" class="input" onkeyup="chkfrs()"><br>
+							<div style="text-align: center;">
+								<button id="sgup" class="signbtn" onclick="sgnnxt()" disabled>続く</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="display: none;">
+					<span id="sgnint">1</span>
+				</div>
+				<script>
+					function opnsgn() {
+						document.getElementById("signup").style.display = "block";
+					}
+					function chkfrs() {
+						var frs = document.getElementById("firstname").value;
+						var lst = document.getElementById("lastname").value;
+						if( frs.length > 0 && lst.length > 0 ) {
+							document.getElementById("sgup").disabled = false;
+						} else {
+							document.getElementById("sgup").disabled = true;
+						}
+					}
+					function sgnnxt() {
+						var qst = document.getElementById("sgnint").innerHTML;
+						if(qst=="1") {
+							document.getElementById("q1").style.display = "none";
+							document.getElementById("q2").style.display = "block";
+							document.getElementById("sgnint").innerHTML = "2";
+						}
+					}
+					function bcksgn() {
+						var qst = document.getElementById("sgnint").innerHTML;
+						if(qst=="1") {
+							document.getElementById("signup").style.display = "none";
+							document.getElementById("sgnint").innerHTML = "1";
+						}
+						if(qst=="2") {
+							document.getElementById("q1").style.display = "block";
+							document.getElementById("q2").style.display = "none";
+							document.getElementById("sgnint").innerHTML = "1";
+						}
+					}
+				</script>
 			</div>
 		</div>
 	</body>
