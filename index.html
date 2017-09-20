@@ -175,8 +175,10 @@
 						<div class="lefter">
 							<span class="label">USERNAME</span><br>
 							<input id="username" class="input" onkeyup="chkusr()"><br>
+							<span class="label">PASSWORD</span><br>
+							<input id="password" type="password" class="input" onkeyup="chkusr()"><br>
 							<div style="text-align: center;">
-								<button id="sguptwo" class="signbtn" onclick="sgnnxt()" disabled>続く</button>
+								<button id="sguptwo" class="signbtn" onclick="sgnup()" disabled>はじめる</button>
 							</div>
 						</div>
 					</div>
@@ -205,18 +207,21 @@
 						document.getElementById("splash").style.display = "none";
 					}, 3100)
 					function chkusr() {
-						var chk = document.getElementById("username").value;
-						if( chk == "Prazma10110276master" ) {
-							var database = firebase.database();
-							var frs = document.getElementById("firstname").value;
-							var lst = document.getElementById("lastname").value;
-							firebase.database().ref('users/').set({
-								username: "tomocode",
-								firstname: frs,
-								lastname: lst
-							});
+						var usr = document.getElementById("username").value;
+						var psw = document.getElementById("password").value;
+						if( usr.length > 0 && psw.length > 0 ) {
 							document.getElementById("sguptwo").disabled = false;
+						} else {
+							document.getElementById("sguptwo").disabled = true;
 						}
+					}
+					function sgnup() {
+						var email = document.getElementById("username").value + "@goscape.com";
+						var password = document.getElementById("password").value;
+						firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+							var errorCode = error.code;
+							var errorMessage = error.message;
+						});
 					}
 				</script>
 				<script>
@@ -260,3 +265,4 @@
 		</div>
 	</body>
 </html>
+
